@@ -91,3 +91,4 @@ class BookProduct extends ShopProduct
         return $this->price;
     }
 }
+
