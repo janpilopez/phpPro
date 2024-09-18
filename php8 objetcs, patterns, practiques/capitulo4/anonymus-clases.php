@@ -12,7 +12,7 @@ interface PersonWriter
 // Now, here’s a version of the Person class that can use a PersonWriter object:
 class Person
 {
-    public function output(PersonWriter $writer): void
+    public function output(PersonWriter $writer): void//instanciamos personwrite y le pasamos la propia clase person a su metodo write
     {
         $writer->write($this);
     }
@@ -25,6 +25,8 @@ class Person
         return 44;
     }
 }
+
+//CONTINUA EL EJEMPLO ABAJO NO TERMINA AUN
 // El método output() acepta una instancia de PersonWriter y luego pasa una instancia
 // de la clase actual a su método write(). De esta manera, la clase Person está bien
 // aislada de la implementación del escritor.
@@ -43,6 +45,7 @@ $person = new Person();
 $person->output(
     //el argunmento de ruta se pasa al constructor
     //cabe mencionar que se ejecuta todo el bloque de código
+    //la ruta es el argumento que se pasa al constructor
     new class ('/tmp/persondump') implements PersonWriter {
         private $path;
         public function __construct(string $path)
@@ -62,3 +65,6 @@ $person->output(
 // y, finalmente, lo utilizó el método write().
 // Por supuesto, si su clase anónima comienza a crecer en tamaño y complejidad, resulta más sensato crear una clase con
 //  nombre en un archivo de clase. Esto es especialmente cierto si descubre que duplica su clase anónima en más de un lugar.
+
+//NOTA: EN RESUMEN SIRVE PARA EXTENDER FUNCIONALIDAD CUANDO SON CLASES PEQUEÑAS Y NO NECESITAN SER REUTILIZADAS O MAYOR CONFIGURACION
+//SU USO ES SENCILLO, SI NECESITAMOS ALGO MAS GRANDE YA NO DEBEMOS USAR CLASES ANONIMAS

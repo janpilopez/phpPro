@@ -1,7 +1,7 @@
 <?php
 
-//EN OTRAS PALABRAS UN TRAIT ES UNA IMPLEMENTACION CONCRETA a una clase(CODIGO A REALIZAR, FUNCION , ETC REUTILIZABLE), QUE PUEDE
-//que cumple con la interfaz y al usar el trait ya implementa este metodo obligatorio de la interfaz,
+//EN OTRAS PALABRAS UN TRAIT ES UNA IMPLEMENTACION CONCRETA (funcionabilidad ya hecha) a una clase
+//que cumple para este ejemplo con la interfaz (la funcion que exige la interfaz) y al usar el trait ya implementa este metodo(funcion) obligatorio de la interfaz,
 //ASI MISMO LE UBICAMOS RESTRICCION A LA CLASE CON EL TIPO IdentityObject, y solo estos objetos pueden ser usados con la funciones del trait
 
 //A CONTINUACION
@@ -39,7 +39,7 @@ trait IdentityTrait
 // cumple con el contrato de la interfaz IdentityObject, ya que implementa el método generateId() como se requiere.
 class ShopProduct implements IdentityObject
 {
-    use IdentityTrait;
+    use IdentityTrait;//usamos el trait que tiene la funcion exigida por la interfaz
     // Otros métodos y propiedades específicos de ShopProduct
 }
 

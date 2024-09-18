@@ -105,7 +105,7 @@ echo "\nset: " . $p->name . '';
 
 // Intercepción: __call actúa como un interceptor para redirigir llamadas a métodos no definidos en PersonV3 hacia la clase PersonWriter.
 // Delegación: Esto permite que PersonV3 delegue la lógica relacionada con la escritura de datos (nombre, edad) a PersonWriter, manteniendo la separación de responsabilidades.
-
+//se usa para metodos, no para propiedades
 ########CALL method pag.131
 class PersonWriter
 {
@@ -191,6 +191,7 @@ class Address
         if ($property === 'streetaddress') {
             return $this->number . ' ' . $this->street;
         }
+        //si queremos mas propiedades podemos seguir añadiendo mas para que las retorne y sean publicas, si no solo retornnamos la propiedad streetaddress que incluye ambos valores
     }
 }
 $address = new Address('441b Bakers Street');

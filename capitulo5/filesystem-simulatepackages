@@ -1,0 +1,15 @@
+require_once() acepta una ruta a un archivo y lo incluye evaluado en el
+script actual. La declaración solo incorporará su destino si no se ha incorporado ya en otro lugar. Este enfoque de una sola vez es particularmente útil cuando se
+accede al código de la biblioteca porque evita la redefinición accidental de clases
+y funciones. Esto puede suceder cuando el mismo archivo se incluye en diferentes partes de
+su script en un solo proceso utilizando una declaración como require() o include().
+Es habitual utilizar require() y require_once() en lugar de las funciones similares include() e include_once(). Esto se debe a que un error fatal
+encontrado en un archivo al que se accede con las funciones require() hace que
+se caiga todo el script. El mismo error encontrado en un archivo al que se accede utilizando las funciones include()
+hará que cese la ejecución del archivo incluido, pero solo generará una advertencia en el script que lo llama. El primer comportamiento, más drástico, es más seguro.
+Existe una sobrecarga asociada con el uso de require_once() en comparación con require(). Si necesita exprimir hasta el último milisegundo de su sistema, puede considerar usar require(). Como suele suceder, se trata de un equilibrio entre eficiencia y conveniencia.
+
+Note require() and require_once() are actually statements, not functions.
+This means that you can omit the brackets when using them. Personally, I prefer
+to use brackets anyway, but if you follow suit, be prepared to be bored by pedants
+eager to explain your mistake.

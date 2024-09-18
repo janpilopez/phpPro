@@ -18,7 +18,7 @@ final class CheckoutV1
 
 class IllegalCheckoutV1 extends CheckoutV1
 {
-    // ...
+    // no se puede extender/instanciar una clase final
 // PHP Fatal error:  Class IllegalCheckout cannot extend final class Checkout in /home/jean/Documentos/PROGRAMACION/PHP/AprendiendoPHP/phpPro/php8 objetcs, patterns, practiques/capitulo4/final-clases.php on line 19
 }
 
@@ -31,7 +31,7 @@ class Checkout
 }
 class IllegalCheckout extends Checkout
 {
-    //SE PUEDE AHORA INSTANCIA PERO NO SE PUEDE SOBREESCRIBIR LA CLASE TOTALIZE
+    //SE PUEDE AHORA INSTANCIAR PERO NO SE PUEDE SOBREESCRIBIR LA CLASE TOTALIZE
     final public function totalize(): void
     {
         // change bill calculation
