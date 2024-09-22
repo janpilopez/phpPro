@@ -33,20 +33,22 @@ class TreeLister
 // You can declare more than one namespace in the same file using the syntax you have
 // already seen. You can also use an alternative syntax that uses braces with the namespace
 // keyword:
-// listing 05.20
-namespace com\getinstance\util {
-    class Debug
-    {
-        public static function helloWorld(): void
-        {
-            print "hello from Debug\n";
-        }
-    }
-}
 
-namespace other {
-    \com\getinstance\util\Debug::helloWorld();
-}
+#########################3NAMESPACES MULTIPLES EN UN SOLO ARCHIVO############################################
+
+// namespace com\getinstance\util {
+//     class Debug
+//     {
+//         public static function helloWorld(): void
+//         {
+//             print "hello from Debug\n";
+//         }
+//     }
+// }
+
+// namespace other {
+//     \com\getinstance\util\Debug::helloWorld();
+// }
 // If you must combine multiple namespaces in the same file, then this is the
 // recommended practice. Usually, however, it’s considered best practice to define
 // namespaces on a per-file basis.
