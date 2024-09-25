@@ -9,6 +9,10 @@
 // the ReflectionFunction class provides information about a given function, and
 // ReflectionExtension yields insight about an extension compiled into the language.
 
+// Entre ellas, las clases de la API Reflection proporcionan un acceso en tiempo de ejecución sin precedentes
+// a la información sobre los objetos, funciones y extensiones de sus scripts.
+
+
 // Reflection: Proporciona un método export() estático para resumir la información de la clase
 // ReflectionAttribute Información contextual sobre clases, propiedades, constantes o parámetros
 // ReflectionClass Información y herramientas de la clase
@@ -38,7 +42,7 @@
 // Aquí tiene una herramienta que está a la altura. ReflectionClass
 // ofrece métodos que revelan información sobre cada aspecto de una clase determinada, ya sea
 // una clase interna o definida por el usuario. El constructor de ReflectionClass acepta un nombre de clase o de interfaz (o una instancia de objeto) como único argumento:
-require_once "../capitulo1-3/example/herenciaOptimize.php";
+require_once "../../capitulo1-3/example/herenciaOptimize.php";
 
 $prodclass = new \ReflectionClass(CdProduct::class);
 print $prodclass;
