@@ -108,3 +108,85 @@ print_r($matches); // Muestra las palabras que coinciden
 //     /: Finaliza la expresión.
 
 // Esto hace que \b sea muy útil para buscar palabras exactas en textos, evitando coincidencias parciales dentro de otras palabras. Si necesitas más ejemplos o aclaraciones, ¡dímelo!
+
+// DIFERENCIAS CON () Y COINCIDENCIAS Y RESULTADOS DEL PREG_MATCH
+
+// $input = "El precio del producto es 150 dólares.";
+
+
+// Y queremos extraer tanto el número como la palabra "dólares".
+
+### Expresión Regular
+
+// Utilizaremos la siguiente expresión regular:
+// '/(\d+) (\w+)/'
+
+
+// - **`(\d+)`**: Captura uno o más dígitos (el precio).
+// - **`(\w+)`**: Captura una o más letras (la unidad, en este caso "dólares").
+
+### Código Completo
+
+// Aquí está el código que utiliza `preg_match()`:
+
+$input = "El precio del producto es 150 dólares.";
+if (preg_match('/(\d+) (\w+)/', $input, $matches)) {
+    echo "Coincidencia completa: " . $matches[0] . "\n"; // Coincidencia completa
+    echo "Precio: " . $matches[1] . "\n";              // Primer grupo capturado (dígitos)
+    echo "Unidad: " . $matches[2] . "\n";              // Segundo grupo capturado (palabra)
+}
+
+
+### Salida Esperada
+
+// Si ejecutas el código, la salida será:
+
+// Coincidencia completa: 150 dólares
+// Precio: 150
+// Unidad: dólares
+
+### Desglose de los Resultados
+
+// 1. **`$matches[0]`**:
+//    - Contiene la coincidencia completa de la expresión regular.
+//    - En este caso, será `"150 dólares"`.
+
+// 2. **`$matches[1]`**:
+//    - Contiene la primera coincidencia del primer grupo de captura (lo que está entre los primeros paréntesis).
+//    - Aquí, será `"150"` (los dígitos).
+
+// 3. **`$matches[2]`**:
+//    - Contiene la primera coincidencia del segundo grupo de captura (lo que está entre los segundos paréntesis).
+//    - Aquí, será `"dólares"` (la palabra).
+
+### Resumen Visual
+
+// - **Coincidencia Completa**:
+//   - `$matches[0]`: `"150 dólares"`
+  
+// - **Primer Grupo Capturado**:
+//   - `$matches[1]`: `"150"`
+
+// - **Segundo Grupo Capturado**:
+//   - `$matches[2]`: `"dólares"`
+
+### Importancia de Usar Paréntesis
+
+// - **Sin Paréntesis**: Si escribes la expresión como `'/\d+ \w+/'`, solo obtendrás la coincidencia completa en `$matches[0]`, y no podrás acceder a los componentes individuales.
+// - **Con Paréntesis**: Al usar `'/(\d+) (\w+)/'`, puedes capturar y acceder a partes específicas de la coincidencia.
+
+
+// 1. Con ^ y $
+
+// if (preg_match('/^(.*)(L|R)(.*)$/', $line, $matches)) {
+
+    // ^: Indica que la coincidencia debe comenzar desde el inicio de la cadena.
+    // $: Indica que la coincidencia debe terminar en el final de la cadena.
+    // Significado: Esta expresión garantiza que toda la cadena se utiliza en la coincidencia. Capturará cualquier texto antes y después de L o R, pero también asegura que no haya caracteres adicionales antes del inicio o después del final de la cadena.
+
+// 2. Sin ^ y $
+
+// if (preg_match('/(.*)(L|R)(.*)/', $line, $matches)) {
+// }
+    // Sin ^ y $: Esto significa que la coincidencia puede ocurrir en cualquier parte de la cadena.
+    // Significado: Esta expresión capturará L o R y cualquier texto antes y después de ellos, pero no requiere que la cadena coincida completamente. Puede haber otros caracteres antes o después de la coincidencia.

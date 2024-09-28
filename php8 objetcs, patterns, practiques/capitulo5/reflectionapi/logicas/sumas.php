@@ -10,7 +10,7 @@ foreach ($lines as $line) {
     // Separar los números
     // list($x, $y) = explode(' ', trim($line));
         // Separar los números, ignorando múltiples espacios
-    list($x,$y) = preg_split('/\s+/', trim($line));
+    list($x,$y) = preg_split('/\s+/', trim($line)); // trim() se utiliza para eliminar espacios en blanco (o caracteres específicos) del inicio y el final de una cadena. Es muy útil para limpiar entradas antes de procesarlas.
     // $result = preg_split($pattern, $input); VALIDO TAMBIEN
 
     // Calcular la suma mínima

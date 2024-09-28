@@ -6,28 +6,30 @@ class TreeNode
     public $value;
     public $left;
     public $right;
+    public $father;
     public $depth;
 
     public function __construct($value)
     {
-        $this->value = $value;
+        $this->value = $value;//valor del nodo o nombre
         $this->left = null;
         $this->right = null;
-        $this->depth = 0;
+        $this->father = null;
+        $this->depth = 0;//prfundidad
     }
 }
 
 class BinaryTree
 {
     private $root;
-    private $nodesByDepth = [];
+    private $nodesByDepth = [];//guardamos los nodos por produndidad
 
     public function __construct($rootValue)
     {
         $this->root = new TreeNode($rootValue);
         $this->nodesByDepth[0] = [$this->root]; // Almacenar la raíz a profundidad 0
     }
-
+                            //5             10          L (1 o 0)
     public function insert($parentValue, $childValue, $isLeft)
     {
         $parentNode = $this->findNode($this->root, $parentValue);
@@ -39,45 +41,96 @@ class BinaryTree
                 $parentNode->right = $childNode;
             }
             $childNode->depth = $parentNode->depth + 1;
+            $childNode->father = $parentNode->value;
+            //los guardamos en un array por profundidad
             $this->nodesByDepth[$childNode->depth][] = $childNode;
+        }else{
+            echo "No se encontro el nodo padre".$parentValue.$isLeft.$childValue;
         }
     }
 
+    //SIRVE PARA BUSCAR UN NODO EN EL ARBOL, recibe como parametro nodo matriz y el nodo a buscar
+    //para definir si es el nodo padre encontrado
     private function findNode($node, $value)
     {
         if ($node === null) return null;
         if ($node->value === $value) return $node;
 
+        //buscamos por lado izquierdo con funcion recursiva
         $left = $this->findNode($node->left, $value);
         if ($left !== null) return $left;
 
+        //buscamos por lado derecho con funcion recursiva       
         return $this->findNode($node->right, $value);
     }
 
     public function countNodesWithoutPrimos()
     {
+
+        $nodosNivel = $this->nodesByDepth;
+        //ya no es necesario ya lo guardamos en un array por profundidad al momento de la creacion
+        // foreach ($this->nodesByDepth as $key => $nodes) {
+        //     $nodosNivel[$nodes['depth']][$key] = $nodes;
+            
+        // };
+        // echo(json_encode($nodosNivel));
+        $nodosNoPrimos = [];
         $count = 0;
-        foreach ($this->nodesByDepth as $depth => $nodes) {
-            if (count($nodes) > 1) { // Hay primos en esta profundidad
-                continue;
+        foreach ($nodosNivel as $key => $nodos){
+            if (    count($nodos) > 1   ) {
+                foreach ($nodos as $keyA => $nodoA) {
+                    foreach ($nodos as $keyB => $nodoB) {
+                        if ($nodoA->father != $nodoB->father) {
+                            //verificar existencia de un nodo en un array
+                            echo "c\nomparar: ".$nodoA->value.'-'.$nodoB->value;
+                            if (!in_array($nodoA->value.'-'.$nodoB->value, $nodosNoPrimos)
+                                && !in_array($nodoB->value.'-'.$nodoA->value, $nodosNoPrimos)) {
+                                $combinacion = [$nodoA->value, $nodoB->value];
+                                sort($combinacion);
+                                // ordenar con un operador de navegacion espacial, EN ESTE CASO NO APLICA PORQUE DENTRO DE CADA ARRAY EXISTE OTRO ARRAY
+                                // usort($combinacion, function($a, $b) {
+                                //     return $a['value'] <=> $b['value']; // Ordenar de menor a mayor
+                                //     // return $b['edad'] <=> $a['edad']; // ReversaOrdenar de mayor a menor
+                                // });
+                                $nodosNoPrimos[] = $combinacion[0].'-'.$combinacion[1];
+                            }
+                        }
+                    }
+                }
+            }else{
+
             }
-            $count += count($nodes); // Todos los nodos a esta profundidad son sin primos
         }
-        return $count;
+        echo "\nNodos sin primos: ".json_encode($nodosNoPrimos);
+        return count($nodosNoPrimos);
     }
 }
 
-// Entrada definida como cadena
-$inputString = "7\n1\n1L2\n1R3\n2L4\n2R5\n3L6\n3R7";
+// Entrada definida como cadena, no olvidar aumentar el numero de nodos si ampliamos la expresion
+$inputString = "8\nROOT 12\n12 R 3\n12 L 6\n3 R 5\n3 L 4\n2 R 17\n17 L 13\n6 R 10";
+                //0.    7
+                //1.    1\n1L2
+                //2.    \n1R3
+                //3.    \n2L4
+                //4.    \n2R5
+                //5.    \n3L6
+                //6.    \n3R7";
+
+                //SEPARAMOS POR SALTOS DE LINEA Y QUITAMOS ESPACIOS EN BLANCO DE LOS EXTREMOS DE CADA LINEA
 $input = explode("\n", trim($inputString));
 
 $N = (int)$input[0];
-$rootValue = trim($input[1]);
-$tree = new BinaryTree($rootValue);
 
+preg_match('/(\d+)/', $input[1], $rootValue);
+
+$tree = new BinaryTree($rootValue[1]);
+
+//EMPEZAMOS DESDE POSICION 2 PORQUE LAS LINEAS ANTERIORES DE LA EXPRESION YA ESTAN ASIGNADAS
+//POR DEFECTO SIEMPRE VENDRAN MINIMO 2 LINEAS POR ROOT Y NUMERO TOTAL DE NODOS
 for ($i = 2; $i < $N + 1; $i++) {
     $line = trim($input[$i]);
     if (preg_match('/^(.*)(L|R)(.*)$/', $line, $matches)) {
+        //EL [0] ES LA COINCIDENCIA COMPLETA, LAS DEMAS SON DESGLOSADAS
         $parent = trim($matches[1]);
         $child = trim($matches[3]);
         $isLeft = $matches[2] === 'L';
