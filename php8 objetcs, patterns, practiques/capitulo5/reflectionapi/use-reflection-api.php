@@ -120,7 +120,8 @@ $test = new ModuleRunner();
 $test->init();
 
 // Este código en PHP define una serie de clases e interfaces relacionadas con módulos que se pueden ejecutar, utilizando un patrón de diseño orientado a objetos. Vamos a desglosar cada parte:
-// Clases y Estructuras
+// EN RESUMEN CARGADOR MODULOS
+//Clases y Estructuras
 
 //     Clase Person:
 //         Representa a una persona con una propiedad name.
