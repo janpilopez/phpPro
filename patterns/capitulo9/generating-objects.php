@@ -22,41 +22,49 @@
 
 abstract class Employee
 {
-public function __construct(protected string $name)
-{
+    public function __construct(protected string $name) {}
+    abstract public function fire(): void;
 }
-abstract public function fire(): void;
-}
-This is a concrete class that extends Employee:
 // listing 09.02
 class Minion extends Employee
 {
-public function fire(): void
-{
-print "{$this->name}: I'll clear my desk\n";
+    public function fire(): void
+    {
+        print "{$this->name}: I'll clear my desk\n";
+    }
 }
-}
-Now, here’s a client class that works with Minion objects:
-// listing 09.03
+// Now, here’s a client class that works with Minion objects:
 class NastyBoss
 {
-private array $employees = [];
-public function addEmployee(string $employeeName): void
-{
-$this->employees[] = new Minion($employeeName);
+    private array $employees = [];
+    public function addEmployee(string $employeeName): void
+    {
+        $this->employees[] = new Minion($employeeName);
+    }
+    public function projectFails(): void
+    {
+        if (count($this->employees) > 0) {
+            $emp = array_pop($this->employees);
+            $emp->fire();
+        }
+    }
 }
-public function projectFails(): void
-{
-if (count($this->employees) > 0) {
-    $emp = array_pop($this->employees);
-$emp->fire();
-}
-}
-}
-Time to put the code through its paces:
-// listing 09.04
+// Time to put the code through its paces:
 $boss = new NastyBoss();
 $boss->addEmployee("harry");
 $boss->addEmployee("bob");
 $boss->addEmployee("mary");
 $boss->projectFails();
+
+// Como puede ver, defino una clase base abstracta, Employee, con una implementación
+// reducida, Minion. Dada una cadena de nombre, el método NastyBoss::addEmployee()
+// instancia un nuevo objeto Minion. Siempre que un objeto NastyBoss tiene problemas (a través del método
+// NastyBoss::projectFails()), busca un Minion para activar.
+// Al instanciar un objeto Minion directamente en la clase NastyBoss, limitamos la flexibilidad. Si
+// un objeto NastyBoss pudiera funcionar con cualquier instancia del tipo Employee, podríamos hacer que
+// nuestro código sea susceptible de variación en tiempo de ejecución a medida que agregamos más especializaciones de Employee.
+// Debería resultarle familiar el polimorfismo de la Figura 9-1.
+
+// Si la clase NastyBoss no instancia un objeto Minion, ¿de dónde proviene?
+// Los autores a menudo evitan este problema restringiendo un tipo de argumento en una declaración de método y luego omitiendo
+//  convenientemente mostrar la instanciación en cualquier otro contexto que no sea de prueba:
