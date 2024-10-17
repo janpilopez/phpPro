@@ -1,6 +1,6 @@
 <?php
 $a = array("hi", "hello", "bye");
-for (; count($a) < 5;) { 
+for (; count($a) < 5;) { //bucle infinito
     if (count($a) == 3) {
         print $a;
     }

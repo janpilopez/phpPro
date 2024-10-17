@@ -3,11 +3,11 @@
 
 class TreeNode
 {
-    public $value;
-    public $left;
-    public $right;
-    public $father;
-    public $depth;
+    public $value;//valor del nodo o nombre
+    public $left;//hijo izquierdo
+    public $right;//hijo derecho
+    public $father;//padre
+    public $depth;//profundidad
 
     public function __construct($value)
     {
@@ -49,7 +49,7 @@ class BinaryTree
         }
     }
 
-    //SIRVE PARA BUSCAR UN NODO EN EL ARBOL, recibe como parametro nodo matriz y el nodo a buscar
+    //SIRVE PARA BUSCAR UN NODO EN EL ARBOL, recibe como parametro nodo matriz y el nodo(valor) a buscar
     //para definir si es el nodo padre encontrado
     private function findNode($node, $value)
     {
@@ -82,7 +82,7 @@ class BinaryTree
                     foreach ($nodos as $keyB => $nodoB) {
                         if ($nodoA->father != $nodoB->father) {
                             //verificar existencia de un nodo en un array
-                            echo "c\nomparar: ".$nodoA->value.'-'.$nodoB->value;
+                            echo "\ncomparar: ".$nodoA->value.'-'.$nodoB->value;
                             if (!in_array($nodoA->value.'-'.$nodoB->value, $nodosNoPrimos)
                                 && !in_array($nodoB->value.'-'.$nodoA->value, $nodosNoPrimos)) {
                                 $combinacion = [$nodoA->value, $nodoB->value];
@@ -122,16 +122,18 @@ $input = explode("\n", trim($inputString));
 $N = (int)$input[0];
 
 preg_match('/(\d+)/', $input[1], $rootValue);
-
+echo "Valor de la raiz: ".json_encode($rootValue);
 $tree = new BinaryTree($rootValue[1]);
 
 //EMPEZAMOS DESDE POSICION 2 PORQUE LAS LINEAS ANTERIORES DE LA EXPRESION YA ESTAN ASIGNADAS
 //POR DEFECTO SIEMPRE VENDRAN MINIMO 2 LINEAS POR ROOT Y NUMERO TOTAL DE NODOS
 for ($i = 2; $i < $N + 1; $i++) {
     $line = trim($input[$i]);
+    //seleccionamos o deglosamos la cadena en 3 partes separados por L O R
     if (preg_match('/^(.*)(L|R)(.*)$/', $line, $matches)) {
+        echo "\nLinea: ".json_encode($matches);
         //EL [0] ES LA COINCIDENCIA COMPLETA, LAS DEMAS SON DESGLOSADAS
-        $parent = trim($matches[1]);
+        $parent = trim($matches[1]);//eliminamos los espacios de las coincidencias
         $child = trim($matches[3]);
         $isLeft = $matches[2] === 'L';
         $tree->insert($parent, $child, $isLeft);

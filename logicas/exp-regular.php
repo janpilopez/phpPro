@@ -45,7 +45,7 @@
 
     // Buscar Palabras de Longitud Específica
     //     Expresión: '/\b\w{4}\b/'
-    //     Descripción: Coincide con palabras de exactamente 4 letras. En "Esto es una prueba", coincide con "una".
+    //     Descripción: Coincide con palabras de exactamente 4 letras. En "Esto es una prueba", coincide con "esto".
 
     // Buscar Combinaciones de Caracteres
         // Expresión: '/a{2,4}/'
@@ -90,10 +90,10 @@ print_r($matches); // Muestra las palabras que coinciden
 //     Ejemplo:
 
 //     php
-
-//         $input = "The cat sat on the mat.";
-//         preg_match_all('/\bcat\b/', $input, $matches);
-//         print_r($matches[0]); // Imprime "cat"
+    echo "Ejemplo de Límites de Palabra\n";
+        $input = "The cat sat on the mat.";
+        preg_match_all('/\bcat\b/', $input, $matches);
+        print_r($matches[0]); // Imprime "cat"
 
 //     Ejemplo sin Límite de Palabra:
 //         Usando el patrón '/cat/', coincidiría en:

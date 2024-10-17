@@ -82,3 +82,40 @@ function workWithProducts(ShopProduct $prod)
 // juntos. La duplicación generalmente significa un acoplamiento estrecho. Si cambias algo
 // fundamental en una rutina, ¿será necesario modificar las rutinas similares? Si este es el
 // caso, probablemente pertenezcan a la misma clase.
+
+// La clase que sabía demasiado - The Class Who Knew Too Much
+// Puede ser un fastidio pasar parámetros de un método a otro. ¿Por qué no simplemente
+// reducir el problema utilizando una variable global? Con una variable global, todos pueden acceder a los datos.
+
+// Las variables globales tienen su lugar, pero deben verse con cierto nivel de
+// sospecha. Por cierto, es un nivel de sospecha bastante alto. Al usar una variable global,
+// o al darle a una clase cualquier tipo de conocimiento sobre su dominio más amplio, la anclas a su
+// contexto, haciéndola menos reutilizable y dependiente de código que está fuera de su control. Recuerda,
+// quieres disociar tus clases y rutinas y no crear interdependencia. Intenta
+// limitar el conocimiento de una clase sobre su contexto. Veré algunas estrategias para hacer esto más adelante en el libro.
+
+// El hombre de todos los oficios The Jack of All Trades
+// ¿Su clase está intentando hacer demasiadas cosas a la vez? Si es así, intente enumerar las
+// responsabilidades de la clase. Es posible que una de ellas forme la base de una buena
+// clase.
+// Dejar una clase demasiado entusiasta sin cambios puede causar problemas particulares si crea
+// subclases. ¿Qué responsabilidad está ampliando con la subclase? ¿Qué haría
+// si necesitara una subclase para más de una responsabilidad? Es probable que termine
+// con demasiadas subclases o con una dependencia excesiva del código condicional.
+
+// Sentencias condicionales
+// Utilizará las sentencias if y switch con toda razón en todos sus proyectos. A veces, sin embargo, estas estructuras pueden ser un llamado al polimorfismo.
+// Si descubre que está probando ciertas condiciones con frecuencia dentro de una clase,
+// especialmente si encuentra que estas pruebas se reflejan en más de un método, esto podría ser una señal de que su clase única debería ser dos o más. Vea si la estructura del código condicional sugiere responsabilidades que podrían expresarse en clases. Las nuevas clases deben implementar una clase base abstracta compartida. Es probable que luego
+// tenga que averiguar cómo pasar la clase correcta al código del cliente. Trataré algunos patrones para crear objetos en el Capítulo 9.
+
+// The UML
+// Class Diagrams
+// Table 6-1. Visibility Symbols
+// Symbol Visibility Explanation
+// + Public     Available to all code
+// - Private    Available to the current class only
+// # Protected  Available to the current class and its subclasses only
+
+// HERENCIA- IMPLEMENTACIONES - ASOCIACIONES - Aggregation and Composition
+// PAGINA 229 DDEL LIBRO EXPLICA GRAFICAMENTE EL FUNCIONAMIENTO
